@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id=canvas width="500px" height="500px" style="border:1px solid #d3d3d3;">
+    <script>
+       let canvas = document.getElementById('canvas');
+       let context = canvas.getContext('2d');
+       let circle = {
+        x: 0,
+        y: 0,
+        dx: 10,
+        dy:10,
+        radius: 20,
+        isMovingLeft: false,
+        isMovingRight: false,
+        isMovingUp: false,
+        isMovingDown: false,
+       }
+       let color = ['red', 'orange', 'yellow', 'green', 'blue', 'violet']
+        document.addEventListener('keydown', (event)=>{
+            switch(event.key){
+                case 'ArrowRight':{
+                    circle.isMovingRight = true;
+                    break;
+                };
+                case 'ArrowLeft':{
+                    circle.isMovingLeft = true;
+                    break;
+                };
+                case 'ArrowUp':{
+                    circle.isMovingUp = true;
+                    break;
+                };
+                case 'ArrowDown':{
+                    circle.isMovingDown = true;
+                    break;
+                };
+            }
+           
+       })
+       document.addEventListener('keyup', (event)=>{
+        switch(event.key){
+                case 'ArrowRight':{
+                    circle.isMovingRight = false;
+                    break;
+                };
+                case 'ArrowLeft':{
+                    circle.isMovingLeft = false;
+                    break;
+                };
+                case 'ArrowUp':{
+                    circle.isMovingUp = false;
+                    break;
+                };
+                case 'ArrowDown':{
+                    circle.isMovingDown = false;
+                    break;
+                };
+            }
+           
+       })
+       function movingCircle(){
+            if(circle.isMovingLeft){
+                    circle.x -= circle.dx;
+                    circle.radius = Math.random()*(20-10)+10
+            }else if(circle.isMovingRight){
+                    circle.x += circle.dx;
+                    circle.radius = Math.random()*(20-10)+10 
+            }else if(circle.isMovingUp){
+                    circle.y -= circle.dy; 
+                    circle.radius = Math.random()*(20-10)+10
+            }else if(circle.isMovingDown){
+                    circle.y += circle.dy;
+                    circle.radius = Math.random()*(20-10)+10 
+            }
+       }
+       function drawCircle(){
+            context.beginPath();
+                context.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+                if(circle.isMovingLeft || circle.isMovingRight || circle.isMovingUp || circle.isMovingDown){
+                    context.fillStyle = color[Math.floor(Math.random()*color.length)];
+                };
+                context.fill();
+            context.closePath();
+       }
+       
+       function draw(){
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            movingCircle();
+            drawCircle();
+            requestAnimationFrame(draw);
+       }
+       draw()
+    </script>
+</body>
+</html>
