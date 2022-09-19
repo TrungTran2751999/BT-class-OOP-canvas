@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    chieu dai:
+    <input type="number" class="width">
+    chieu rong:
+    <input type="number" class="height">
+    <button class="submit" onclick=propRect()>Submit</button>
+    <div class="result">
+        <div class="chu-vi"></div>
+        <div class="dien-tich"></div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script>
+        function propRect(){
+            let width = document.querySelector('.width').value;
+            let height = document.querySelector('.height').value;
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            if(width > 0 && height > 0){
+                 let S = width*height;
+                 let P = (width + height)*2;
+                 document.querySelector('.chu-vi').innerHTML = `Chu vi: ${P}`;
+                 document.querySelector('.dien-tich').innerHTML = `Diện tích: ${S}`;
+                 canvas.style.width = width + 'px';
+                 canvas.style.height = height + 'px';
+                 
+                 ctx.beginPath();
+                 ctx.rect(0, 0, canvas.width, canvas.height);
+                 ctx.fillStyle = 'red';
+                 ctx.fill();
+                 ctx.closePath();
+            }
+        }
+    </script>
+</body>
+</html>
